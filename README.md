@@ -16,7 +16,7 @@ Este repositório contém os projetos desenvolvidos na disciplina de **Processam
   - Imagens de exemplo.
   - Código em Python.
 
-### 3. **Encontre o Coração**
+### 3. **Heart Finder**
 - **Descrição:** Identificação de corações em imagens utilizando contornos e análise de componentes da Transformada Discreta de Fourier (DFT). Os primeiros e últimos 17 componentes são comparados com base no índice de correlação de Spearman para determinar se o contorno corresponde a um coração.
 - **Conteúdo:** 
   - Imagens de exemplo.
