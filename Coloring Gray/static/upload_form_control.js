@@ -1,50 +1,46 @@
+/**
+ * @file upload_form_control.js
+ * @description Controla o upload de imagens, exibição prévia e envio para o servidor.
+ */
+
+// Seleciona os elementos do DOM
 let fileInputButton = document.getElementById('btn_get_image_file');
 let fileInput = document.getElementById('gray_image_file');
 let fileNameLabel = document.getElementById('fileName');
+let fileForm = document.getElementById('form_file');
 
-// Função para criar uma imagem em branco com as mesmas dimensões da imagem selecionada
+/**
+ * Cria uma imagem em branco com as mesmas dimensões da imagem original.
+ * @param {number} width - Largura da imagem.
+ * @param {number} height - Altura da imagem.
+ * @returns {string} URL da imagem em branco gerada.
+ */
 function createWhiteImage(width, height) {
-    // Criando um canvas com as dimensões da imagem
     let canvas = document.createElement('canvas');
     canvas.width = width;
     canvas.height = height;
-    
-    // Obtendo o contexto do canvas para desenhar
     let ctx = canvas.getContext('2d');
-    
-    // Preenchendo o canvas com a cor branca
     ctx.fillStyle = 'white';
     ctx.fillRect(0, 0, width, height);
-    
-    // Adicionando o texto das reticências no centro do retângulo
-    ctx.fillStyle = 'black';  // Cor do texto
-    ctx.font = `${width / 2}px Arial`;  // Aumentei o tamanho da fonte para 60px (ajuste conforme necessário)
-    ctx.textAlign = 'center';  // Alinha o texto no centro
-    ctx.textBaseline = 'middle';  // Alinha o texto verticalmente no centro
-
-    // Adicionando as reticências no centro
-    ctx.fillText('...', width / 2, height/2.6);
-
-    // Retornando a URL da imagem gerada
+    ctx.fillStyle = 'black';
+    ctx.font = `${width / 2}px Arial`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('...', width / 2, height / 2.6);
     return canvas.toDataURL();
 }
 
-// Atualiza o texto do label e exibe a imagem em branco enquanto espera a resposta do servidor
+/**
+ * Atualiza o texto do label e exibe uma imagem temporária enquanto espera a resposta do servidor.
+ */
 function updateFileName() {
     if (fileInput.files.length > 0) {
         fileNameLabel.innerHTML = `Arquivo selecionado: ${fileInput.files[0].name}`;
-
-        // Criando uma URL temporária para o arquivo de imagem selecionado
-        var fileUrl = URL.createObjectURL(fileInput.files[0]);
-
-        // Carregar a imagem para pegar as dimensões
+        let fileUrl = URL.createObjectURL(fileInput.files[0]);
         let img = new Image();
         img.onload = function () {
-            // Criar uma imagem em branco com as mesmas dimensões da imagem original
-            var whiteImageUrl = createWhiteImage(img.width, img.height);
-
-            // Exibir as imagens
-            showImages(fileUrl, whiteImageUrl);  // Imagem em branco primeiro, depois a original após resposta
+            let whiteImageUrl = createWhiteImage(img.width, img.height);
+            showImages(fileUrl, whiteImageUrl);
         };
         img.src = fileUrl;
     } else {
@@ -52,12 +48,39 @@ function updateFileName() {
     }
 }
 
-
-// Adicionando eventos
-fileInput.addEventListener('change', updateFileName);
-
-// Quando o botão "Search Image" for clicado, dispara o clique no input[type="file"]
-fileInputButton.addEventListener('click', () => {
-    fileInput.click();
+/**
+ * Envia a imagem para o servidor via POST e exibe a resposta.
+ * @param {Event} event - Evento de envio do formulário.
+ */
+fileForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    const formData = new FormData(this);
+    
+    fetch('/upload', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.message) {
+            console.log(data.message);
+            alert('Imagem processada com sucesso!');
+        } else if (data.error) {
+            console.error(data.error);
+            alert('Erro: ' + data.error);
+        }
+        if (data.file) {
+            const imgBase64 = data.file;
+            resultImage.src = 'data:image/png;base64,' + imgBase64;
+            showImages(originalImage.src, resultImage.src);
+        }
+    })
+    .catch(error => {
+        console.error('Erro ao enviar o formulário:', error);
+        alert('Ocorreu um erro ao enviar a imagem!');
+    });
 });
 
+// Adiciona eventos ao input de arquivo e botão de upload
+fileInput.addEventListener('change', updateFileName);
+fileInputButton.addEventListener('click', () => fileInput.click());
