@@ -29,6 +29,9 @@ Este repositório contém os projetos desenvolvidos na disciplina de **Processam
   - Código em Python.
   - Códigos em Python das últimas versões e variações testadas.
 
+### 5. **resnet18_model_training.ipynb** *(Versão 3 do modelo em processo de treinamento)*
+- **Descrição:** Notebook contendo a lógica implementada para definir e treinar o modelo de IA, desenvolvido em PyTorch, utilizado no projeto final **Coloring Gray**.
+
 ## Tecnologias Utilizadas
 - Python
 - OpenCV
