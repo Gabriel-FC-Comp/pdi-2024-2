@@ -23,7 +23,7 @@ Este repositório contém os projetos desenvolvidos na disciplina de **Processam
   - Código em Python.
 
 ### 4. **Coloring Gray** *(Projeto Final - Em Desenvolvimento)* 
-- **Descrição:** Rede neural convolucional residual, desenvolvida em PyTorch, para colorir imagens em escala de cinza, reconstruindo seus canais RGB. Este projeto utiliza aprendizado de máquina para gerar resultados realistas.
+- **Descrição:** Rede neural, desenvolvida em PyTorch, para colorir imagens em escala de cinza, reconstruindo seus canais RGB. Este projeto utiliza aprendizado de máquina para gerar resultados realistas.
 - **Conteúdo:**
   - Imagens de exemplo.
   - Código em Python.
