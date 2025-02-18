@@ -27,7 +27,8 @@ Autor:
 
 from numpy import clip, ndarray, uint8
 from resnet18_model import UResNet18
-from torch import load, Tensor
+from torch import load, Tensor, device
+from torch.cuda import is_available
 from os.path import join
 
 #===============================================================================
@@ -48,7 +49,8 @@ def import_model_resnet18(model_path: str):
     """
     try:
         color_model_resnet18 = UResNet18()
-        color_model_resnet18.load_state_dict(load(join(model_path, _model_name)))
+        available_device = device('cuda' if is_available() else 'cpu')
+        color_model_resnet18.load_state_dict(load(join(model_path, _model_name),map_location=available_device))
         
     except Exception as e:
         print(f"Erro ao carregar o modelo: {e}")

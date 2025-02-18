@@ -22,15 +22,15 @@ Este repositório contém os projetos desenvolvidos na disciplina de **Processam
   - Imagens de exemplo.
   - Código em Python.
 
-### 4. **Coloring Gray** *(Projeto Final - Em Desenvolvimento)* 
+### 4. **AI Colorizer** *(Projeto Final)* 
 - **Descrição:** Rede neural convolucional residual, desenvolvida em PyTorch, para colorir imagens em escala de cinza, reconstruindo seus canais RGB. Este projeto utiliza aprendizado de máquina para gerar resultados realistas.
 - **Conteúdo:**
   - Imagens de exemplo.
   - Código em Python.
   - Códigos em Python das últimas versões e variações testadas.
 
-### 5. **resnet18_model_training.ipynb** *(Versão 3 do modelo em processo de treinamento)*
-- **Descrição:** Notebook contendo a lógica implementada para definir e treinar o modelo de IA, desenvolvido em PyTorch, utilizado no projeto final **Coloring Gray**.
+### 5. **resnet18_model_training.ipynb**
+- **Descrição:** Notebook contendo a lógica implementada para definir e treinar o modelo de IA, desenvolvido em PyTorch, utilizado no projeto final **AI Colorizer**.
 
 ## Tecnologias Utilizadas
 - Python
