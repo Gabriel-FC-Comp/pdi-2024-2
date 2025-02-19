@@ -96,7 +96,9 @@ def pre_process_image_to_model(gray_img: ndarray) -> Tuple[Tensor, Tuple[int, in
     - Redimensiona a imagem para o tamanho esperado pelo modelo.
     - Adiciona uma dimensão extra para indicar um lote de tamanho 1.
     """
-    gray_img = cvtColor(gray_img, COLOR_GRAY2RGB)
+    print(gray_img.shape)
+    if len(gray_img.shape) == 2:
+        gray_img = cvtColor(gray_img, COLOR_GRAY2RGB)
     original_image_shape = gray_img.shape[:2][::-1]
     gray_img = resize(gray_img, _IMG_MODEL_SIZE).astype(float32)
     gray_img = gray_img.transpose(2,0,1)
